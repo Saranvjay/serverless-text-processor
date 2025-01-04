@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+      nodejs: 16
+    commands:
+      # Install AWS CDK and dependencies
+      - echo Installing dependencies...
+      - pip install -r lambda/requirements.txt -t lambda/
+      - npm install -g aws-cdk
+      - npm install
+  build:
+    commands:
+      # Synthesize the CloudFormation template and deploy
+      - echo Synthesizing the CDK stack...
+      - cdk synth
+      - echo Deploying the CDK stack...
+      - cdk deploy --require-approval never
+
+artifacts:
+  files:
+    - '**/*'
+
