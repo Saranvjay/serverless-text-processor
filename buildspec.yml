@@ -1,16 +1,24 @@
+---
 version: 0.2
-
 phases:
   install:
     runtime-versions:
       nodejs: 16
       python: 3.8
     commands:
-      - pip install -r lambda/requirements.txt -t lambda/
+      - echo "Installing Node.js and npm..."
+      - curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+      - apt-get install -y nodejs
+      - echo "Node.js version: $(node -v)"
+      - echo "npm version: $(npm -v)"
+      - echo "Installing AWS CDK globally..."
       - npm install -g aws-cdk
-      - npm install
+      - pip install -r lambda/requirements.txt -t lambda/
   build:
     commands:
+      - echo "Synthesizing the AWS CDK stack..."
       - cdk synth
+      - echo "Deploying the AWS CDK stack..."
       - cdk deploy --require-approval never
+
 
