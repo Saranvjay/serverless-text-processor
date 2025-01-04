@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+      python: 3.8
+    commands:
+      - pip install -r lambda/requirements.txt -t lambda/
+      - npm install -g aws-cdk
+      - npm install
+  build:
+    commands:
+      - cdk synth
+      - cdk deploy --require-approval never
+
