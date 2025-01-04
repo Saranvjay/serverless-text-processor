@@ -6,13 +6,7 @@ phases:
       nodejs: 16
       python: 3.8
     commands:
-      - echo "Installing Node.js and npm..."
-      - curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-      - apt-get install -y nodejs
-      - echo "Node.js version: $(node -v)"
-      - echo "npm version: $(npm -v)"
-      - echo "Installing AWS CDK globally..."
-      - npm install -g aws-cdk
+      - pip install aws-cdk-lib
       - pip install -r lambda/requirements.txt -t lambda/
   build:
     commands:
